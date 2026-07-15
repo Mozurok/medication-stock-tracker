@@ -25,3 +25,6 @@ dist-ssr
 
 # The challenge brief is ArionKoder's material, not mine to republish.
 *.pdf
+
+# The video is recorded; the script was scaffolding for it, not a deliverable.
+VIDEO_SCRIPT.md

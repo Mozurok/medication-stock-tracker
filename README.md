@@ -57,12 +57,32 @@ instead. It's a smaller promise, and it's a promise this app actually keeps. Wit
 this is the first thing I'd build, and I'd start with the scheduling backend, not the
 notification.
 
-**A design pass.** I considered pulling UI references and building something polished. That
-time went into this README and the tests instead. The app is plain on purpose.
-
 **Everything else:** no accounts, no sync across devices, no dose history, no charts, no drug
-interactions, no refill ordering, no i18n, no dark mode. Multiple doses per day work, but only
-at a single time of day.
+interactions, no refill ordering, no i18n. Multiple doses per day work, but only at a single
+time of day.
+
+## What I cut and then put back
+
+The design pass. I cut it first, and I cut it for a real reason: the brief grades choices and
+judgment, not visual fidelity, so with an hour on the clock the README and the tests were worth
+more than the pixels.
+
+Then the work came in under budget, so I went back and did it. That is the time box working
+rather than the time box as an excuse: the cut was real when I made it, and it stopped being
+necessary, so it stopped.
+
+The restyle is grounded in shipped patterns, not my taste. I pulled references for medication
+tracking through [Mobbin](https://mobbin.com) and took three things:
+[GoodRx's medicine cabinet](https://mobbin.com/screens/b60c0f17-3561-4a1e-ba28-414f45c12d14)
+(white cards on a tinted page, a divider splitting identity from the actionable fact),
+[Apple Health](https://mobbin.com/screens/5131c92e-1670-4e62-b0ea-55c3b96bfc2c) (generous radii,
+soft-tinted containers), and [Epsy](https://mobbin.com/screens/edd9e352-63f8-40b9-9b7a-dfd7876a625d)
+(the full-width pill action at the foot of a card, and the reassurance that purple is not a
+strange choice in this domain).
+
+It stayed inside one boundary I set before starting: CSS only, no new dependency. The whole
+restyle is `src/App.css` and `src/index.css`. Adding Tailwind or a component kit would have
+contradicted the argument this README rests on, that nothing here needs a framework.
 
 ## What the browser caught that the tests didn't
 
@@ -91,10 +111,22 @@ src/
   storage.ts                 localStorage read/write; bad JSON yields an empty list
   components/                form + list
   App.tsx                    state and wiring
+  App.css, index.css         the whole restyle; no CSS framework
 ```
 
 ## Built with
 
-Claude Code, working from a plan I approved before any code was written. The date model is
-the one place I overrode it: the first contract it proposed (and I signed off on) was the
-off-by-one above. A subagent driving a real browser is what caught it.
+Claude Code, driven through [Fhorja](http://fhorja.dev/), an open-source workflow operating
+system for AI-assisted engineering that I build and maintain. It is why this repo has a plan
+that was approved before any code was written, why the stack choice is a recorded decision with
+the rejected alternatives attached, and why cutting the design pass and later restoring it are
+both on the record instead of being quietly rewritten.
+
+Where I overrode the AI: the date model. The first contract it proposed, and that I signed off
+on, carried the off-by-one described above. Tests were written from the same wrong assumption
+and passed. A subagent driving a real browser is what caught it, and it also caught the second
+one (the days figure and the date disagreeing) on the re-check after the fix.
+
+The honest version of "how AI helped": it was fast at everything mechanical and it was wrong
+about the one thing that required thinking carefully about a calendar. Both of those are worth
+knowing.
