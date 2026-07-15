@@ -57,6 +57,19 @@ instead. It's a smaller promise, and it's a promise this app actually keeps. Wit
 this is the first thing I'd build, and I'd start with the scheduling backend, not the
 notification.
 
+There is a version that *is* easy: `Notification.requestPermission()` plus an interval,
+about 25 lines. I didn't build it, and not because of the time. It only fires while the tab
+is open, and at 10am your tab is closed. It would work in every test and fail every morning.
+For medication specifically, a reminder you learn to trust and that then goes quiet is worse
+than no reminder at all, because you already had a habit and you'd have replaced it.
+
+The cut left a trace worth mentioning. The form still asked for a time of day, and the card
+still said "1x per day at 10:00", so the app was implying a reminder it had no way to send. I
+found this by setting a time, watching the minute pass, and expecting an alert I had
+personally decided not to build. If the author falls for it, a user has no chance. Cutting a
+feature properly means removing what it left behind, so the page now says plainly that it
+doesn't remind you.
+
 **Everything else:** no accounts, no sync across devices, no dose history, no charts, no drug
 interactions, no refill ordering, no i18n. Multiple doses per day work, but only at a single
 time of day.
