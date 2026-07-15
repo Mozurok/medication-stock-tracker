@@ -67,8 +67,10 @@ export function MedicationForm({ onAdd, today }: Props) {
           />
         </label>
 
+        {/* "Usual time", not "Time": the app never acts on this, so the label must
+            describe the user's routine rather than imply a trigger. */}
         <label>
-          Time
+          Usual time
           <input
             type="time"
             value={timeOfDay}

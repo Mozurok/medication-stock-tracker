@@ -36,7 +36,9 @@ function App() {
       <header>
         <h1>Medication stock</h1>
         <p className="lede">
-          Know a box is running out before it actually does. Everything stays in this browser.
+          Know a box is running out before it actually does. This page does not remind you to
+          take anything: it works the numbers out each time you open it, and they stay in this
+          browser.
         </p>
       </header>
 

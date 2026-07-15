@@ -7,9 +7,12 @@ type Props = {
   onRemove: (id: string) => void
 }
 
+// The locale is pinned rather than left to the browser: every other string here is
+// hardcoded English, and `undefined` renders "14 de ago. de 2026" next to "Runs out
+// in 30 days" on a pt-BR browser. One sentence, one language.
 function formatDate(isoDate: string): string {
   const [y, m, d] = isoDate.split('-').map(Number)
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(undefined, {
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
@@ -43,7 +46,8 @@ export function MedicationList({ medications, today, onTakeDose, onRemove }: Pro
             </div>
 
             <p className="meta">
-              {medication.dosesPerDay}x per day at {medication.timeOfDay}
+              {medication.dosesPerDay}x per day at {medication.timeOfDay} &middot; bought{' '}
+              {formatDate(medication.purchaseDate)}
             </p>
 
             <progress value={status.pillsRemaining} max={medication.pillsBought} />
